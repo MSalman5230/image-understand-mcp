@@ -174,12 +174,3 @@ git push origin main --follow-tags
 
 Use `patch` for fixes, `minor` for backward-compatible features, and `major` for breaking changes.
 
-### GitHub Actions Publishing
-
-After the first manual publish, configure npm Trusted Publishing for package `@msalman5230/image-understand-mcp`:
-
-- Publisher: GitHub Actions
-- Repository: `MSalman5230/image-understand-mcp`
-- Workflow filename: `publish.yml`
-
-Once trusted publishing is configured, pushing a `v*.*.*` tag publishes that package version automatically.
