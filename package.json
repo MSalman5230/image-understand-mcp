@@ -1,8 +1,12 @@
 {
-  "name": "image-understand-mcp",
-  "version": "0.1.0",
+  "name": "@msalman5230/image-understand-mcp",
+  "version": "1.0.0",
   "description": "Local MCP server that lets text-only agents understand local images through Gemini vision models.",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSalman5230/image-understand-mcp.git"
+  },
   "bin": {
     "image-understand-mcp": "./dist/index.js"
   },

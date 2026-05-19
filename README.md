@@ -19,7 +19,7 @@ npm run build
 
 ## Publish for `npx`
 
-The package exposes a CLI binary named `image-understand-mcp`, so once it is published to npm, users do not need to point their MCP client at `dist/index.js`.
+The npm package is published as `@msalman5230/image-understand-mcp` and exposes a CLI binary named `image-understand-mcp`, so users do not need to point their MCP client at `dist/index.js`.
 
 Before publishing:
 
@@ -35,13 +35,38 @@ npm login
 npm publish --access public
 ```
 
+Scoped npm packages must use `--access public` on publish unless you want a private/restricted package.
+
 After that, MCP clients can launch the server with:
 
 ```bash
-npx -y image-understand-mcp
+npx -y @msalman5230/image-understand-mcp
 ```
 
 For unreleased local testing, keep using `node dist/index.js`, or run `npm link` from this repo and use the linked `image-understand-mcp` binary.
+
+## Release Versions
+
+The first public release is `1.0.0`.
+
+For future releases, use npm's semver bump command from the repo root:
+
+```bash
+npm version patch
+git push origin main --follow-tags
+```
+
+Use `patch` for fixes, `minor` for backward-compatible features, and `major` for breaking changes.
+
+## GitHub Actions Publishing
+
+After the first manual publish, configure npm Trusted Publishing for package `@msalman5230/image-understand-mcp`:
+
+- Publisher: GitHub Actions
+- Repository: `MSalman5230/image-understand-mcp`
+- Workflow filename: `publish.yml`
+
+Once trusted publishing is configured, pushing a `v*.*.*` tag publishes that package version automatically.
 
 ## Environment
 
@@ -90,7 +115,7 @@ Add this to `~/.codex/config.toml` after publishing the package to npm:
 ```toml
 [mcp_servers.image_understand]
 command = "npx"
-args = ["-y", "image-understand-mcp"]
+args = ["-y", "@msalman5230/image-understand-mcp"]
 env = { GEMINI_API_KEY = "YOUR_KEY", GEMINI_MODEL = "gemini-3.5-flash" }
 ```
 
@@ -99,7 +124,7 @@ You can also keep the API key outside the config and let Codex inherit the envir
 ```toml
 [mcp_servers.image_understand]
 command = "npx"
-args = ["-y", "image-understand-mcp"]
+args = ["-y", "@msalman5230/image-understand-mcp"]
 env = { GEMINI_MODEL = "gemini-3.5-flash" }
 ```
 
@@ -122,7 +147,7 @@ Add this to `opencode.json`:
   "mcp": {
     "image_understand": {
       "type": "local",
-      "command": ["npx", "-y", "image-understand-mcp"],
+      "command": ["npx", "-y", "@msalman5230/image-understand-mcp"],
       "enabled": true,
       "environment": {
         "GEMINI_API_KEY": "{env:GEMINI_API_KEY}",
