@@ -81,4 +81,28 @@ describe("handleAnalyzeImage", () => {
     expect(result.content[0].text).toContain("IMAGE_NOT_FOUND");
     expect(analyzer.analyze).not.toHaveBeenCalled();
   });
+
+  it("passes extreme_detail mode into the generated prompt", async () => {
+    const dir = await makeTempDir();
+    await writeFile(path.join(dir, "sample.png"), Buffer.from([1, 2, 3]));
+    const analyzer = {
+      model: "fake-vision-model",
+      analyze: vi.fn().mockResolvedValue("Exhaustive image analysis."),
+    };
+
+    const result = await handleAnalyzeImage(
+      {
+        image_path: "sample.png",
+        mode: "extreme_detail",
+      },
+      {
+        analyzer,
+        cwd: dir,
+      },
+    );
+
+    expect(result).not.toHaveProperty("isError");
+    expect(result.structuredContent.mode).toBe("extreme_detail");
+    expect(result.structuredContent.prompt).toContain("Describe everything visible");
+  });
 });

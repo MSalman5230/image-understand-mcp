@@ -8,6 +8,8 @@ import {
   analysisDetails,
   analysisModes,
   createGoogleVisionAnalyzerFromEnv,
+  type ImageAnalysisDetail,
+  type ImageAnalysisMode,
   type VisionAnalyzer,
 } from "./googleVision.js";
 
@@ -41,7 +43,7 @@ const imageToolInputSchema = {
     .optional()
     .default("general")
     .describe(
-      "Choose general for normal image questions, ocr for reading text, objects for identifying/counting things, or accessibility for alt text.",
+      "Choose general for normal image questions, ocr for reading text, objects for identifying/counting things, accessibility for alt text, or extreme_detail to describe everything visible in the image.",
     ),
   detail: z
     .enum(analysisDetails)
@@ -56,8 +58,8 @@ const analyzeImageDescription =
 async function runAnalyzeImageTool(args: {
   image_path: string;
   question?: string;
-  mode?: "general" | "ocr" | "objects" | "accessibility";
-  detail?: "brief" | "normal" | "detailed";
+  mode?: ImageAnalysisMode;
+  detail?: ImageAnalysisDetail;
 }) {
   try {
     return await handleAnalyzeImage(
@@ -95,7 +97,7 @@ server.registerTool(
     inputSchema: {
       ...imageToolInputSchema,
       mode: imageToolInputSchema.mode.describe(
-        "Choose general for normal image descriptions, ocr for reading text, objects for identifying/counting things, or accessibility for alt text.",
+        "Choose general for normal image descriptions, ocr for reading text, objects for identifying/counting things, accessibility for alt text, or extreme_detail to describe everything visible in the image.",
       ),
     },
   },

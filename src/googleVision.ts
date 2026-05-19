@@ -10,7 +10,7 @@ import {
 
 export const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
 
-export const analysisModes = ["general", "ocr", "objects", "accessibility"] as const;
+export const analysisModes = ["general", "ocr", "objects", "accessibility", "extreme_detail"] as const;
 export type ImageAnalysisMode = (typeof analysisModes)[number];
 
 export const analysisDetails = ["brief", "normal", "detailed"] as const;
@@ -59,6 +59,8 @@ const modeInstructions: Record<ImageAnalysisMode, string> = {
     "Identify visible objects, approximate counts, attributes, relationships, and spatial arrangement.",
   accessibility:
     "Write useful alt text first, then include important visual details that help someone understand the image without seeing it.",
+  extreme_detail:
+    "Describe everything visible in the image as exhaustively as possible: scene, people, objects, text, colors, positions, layout, background, foreground, lighting, style, materials, relationships, counts, small details, and uncertainties.",
 };
 
 const detailInstructions: Record<ImageAnalysisDetail, string> = {
