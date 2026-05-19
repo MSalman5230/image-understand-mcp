@@ -1,6 +1,6 @@
 # Image Understand MCP Server
 
-Local MCP server that lets an LLM agent without native vision understand local image files through Google Gemini or another Google-accessible vision-capable model ID.
+Local MCP server that lets an LLM agent without native vision understand local image files through Google Gemini/Gemm model ID.
 
 The server runs over stdio and exposes image analysis tools for local image paths.
 
