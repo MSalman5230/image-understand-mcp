@@ -4,81 +4,6 @@ Local MCP server that lets an LLM agent without native vision understand local i
 
 The server runs over stdio and exposes image analysis tools for local image paths.
 
-## Requirements
-
-- Node.js 18 or newer
-- A Gemini API key in `GEMINI_API_KEY`
-- Local image files (`.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.bmp`, `.heic`, `.heif`)
-
-## Install
-
-```bash
-npm install
-npm run build
-```
-
-## Publish for `npx`
-
-The npm package is published as `@msalman5230/image-understand-mcp` and exposes a CLI binary named `image-understand-mcp`, so users do not need to point their MCP client at `dist/index.js`.
-
-Before publishing:
-
-```bash
-npm run check
-npm pack --dry-run
-```
-
-Publish:
-
-```bash
-npm login
-npm publish --access public
-```
-
-Scoped npm packages must use `--access public` on publish unless you want a private/restricted package.
-
-After that, MCP clients can launch the server with:
-
-```bash
-npx -y @msalman5230/image-understand-mcp
-```
-
-For unreleased local testing, keep using `node dist/index.js`, or run `npm link` from this repo and use the linked `image-understand-mcp` binary.
-
-## Release Versions
-
-The first public release is `1.0.0`.
-
-For future releases, use npm's semver bump command from the repo root:
-
-```bash
-npm version patch
-git push origin main --follow-tags
-```
-
-Use `patch` for fixes, `minor` for backward-compatible features, and `major` for breaking changes.
-
-## GitHub Actions Publishing
-
-After the first manual publish, configure npm Trusted Publishing for package `@msalman5230/image-understand-mcp`:
-
-- Publisher: GitHub Actions
-- Repository: `MSalman5230/image-understand-mcp`
-- Workflow filename: `publish.yml`
-
-Once trusted publishing is configured, pushing a `v*.*.*` tag publishes that package version automatically.
-
-## Environment
-
-- `GEMINI_API_KEY`: required Google Gemini API key
-- `GEMINI_MODEL`: optional model ID, defaults to `gemini-3.5-flash`
-- `IMAGE_UNDERSTAND_INLINE_LIMIT_BYTES`: optional inline image limit, defaults to 18 MiB
-- `IMAGE_UNDERSTAND_MAX_IMAGE_BYTES`: optional maximum image size, defaults to 100 MiB
-
-The MCP server reads only the environment of the process that launches it. It does not load `.env`, `.env.local`, or any other dotenv file. For Codex/OpenCode usage, pass `GEMINI_API_KEY` and `GEMINI_MODEL` through that client config or through the parent shell environment.
-
-Gemma support in v1 is configuration-based: set `GEMINI_MODEL` to a Google-accessible, vision-capable Gemma model ID if your account/runtime supports it. This server does not include a local Gemma runtime.
-
 ## Tool
 
 `analyze_image`
@@ -168,9 +93,32 @@ In OpenCode, MCP tools are shown as normal tools, often with the MCP server name
 
 ## Development
 
+### Requirements
+
+- Node.js 18 or newer
+- A Gemini API key in `GEMINI_API_KEY`
+- Local image files (`.png`, `.jpg`, `.jpeg`, `.webp`, `.gif`, `.bmp`, `.heic`, `.heif`)
+
+### Environment
+
+- `GEMINI_API_KEY`: required Google Gemini API key
+- `GEMINI_MODEL`: optional model ID, defaults to `gemini-3.5-flash`
+- `IMAGE_UNDERSTAND_INLINE_LIMIT_BYTES`: optional inline image limit, defaults to 18 MiB
+- `IMAGE_UNDERSTAND_MAX_IMAGE_BYTES`: optional maximum image size, defaults to 100 MiB
+
+The MCP server reads only the environment of the process that launches it. It does not load `.env`, `.env.local`, or any other dotenv file. For Codex/OpenCode usage, pass `GEMINI_API_KEY` and `GEMINI_MODEL` through that client config or through the parent shell environment.
+
+Gemma support in v1 is configuration-based: set `GEMINI_MODEL` to a Google-accessible, vision-capable Gemma model ID if your account/runtime supports it. This server does not include a local Gemma runtime.
+
+### Install
+
+```bash
+npm install
+npm run build
+```
+
 ```bash
 npm test
-npm run build
 npm run check
 ```
 
@@ -184,3 +132,54 @@ npm run smoke -- "C:/path/to/image.jpg" "What is this image?"
 The smoke script loads `.env.local` for development convenience. The MCP server itself does not load dotenv files.
 
 For stdio MCP servers, stdout is reserved for JSON-RPC messages. This server writes diagnostics to stderr only.
+
+### Publish for `npx`
+
+The npm package is published as `@msalman5230/image-understand-mcp` and exposes a CLI binary named `image-understand-mcp`, so users do not need to point their MCP client at `dist/index.js`.
+
+Before publishing:
+
+```bash
+npm run check
+npm pack --dry-run
+```
+
+Publish:
+
+```bash
+npm login
+npm publish --access public
+```
+
+Scoped npm packages must use `--access public` on publish unless you want a private/restricted package.
+
+After that, MCP clients can launch the server with:
+
+```bash
+npx -y @msalman5230/image-understand-mcp
+```
+
+For unreleased local testing, keep using `node dist/index.js`, or run `npm link` from this repo and use the linked `image-understand-mcp` binary.
+
+### Release Versions
+
+The first public release is `1.0.0`.
+
+For future releases, use npm's semver bump command from the repo root:
+
+```bash
+npm version patch
+git push origin main --follow-tags
+```
+
+Use `patch` for fixes, `minor` for backward-compatible features, and `major` for breaking changes.
+
+### GitHub Actions Publishing
+
+After the first manual publish, configure npm Trusted Publishing for package `@msalman5230/image-understand-mcp`:
+
+- Publisher: GitHub Actions
+- Repository: `MSalman5230/image-understand-mcp`
+- Workflow filename: `publish.yml`
+
+Once trusted publishing is configured, pushing a `v*.*.*` tag publishes that package version automatically.
