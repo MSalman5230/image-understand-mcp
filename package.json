@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "smoke": "node scripts/smoke.mjs",
     "test": "vitest run",
     "check": "npm run build && npm test"
   },
