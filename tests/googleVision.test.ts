@@ -9,7 +9,7 @@ import type { LoadedImage } from "../src/imageInput.js";
 let tempDirs: string[] = [];
 
 async function makeImage(): Promise<LoadedImage> {
-  const dir = await mkdtemp(path.join(tmpdir(), "image-understanding-mcp-"));
+  const dir = await mkdtemp(path.join(tmpdir(), "image-understand-mcp-"));
   tempDirs.push(dir);
   const absolutePath = path.join(dir, "sample.png");
   await writeFile(absolutePath, Buffer.from([1, 2, 3, 4]));

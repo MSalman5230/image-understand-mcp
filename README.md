@@ -1,8 +1,8 @@
-# Image Understanding MCP Server
+# Image Understand MCP Server
 
 Local MCP server that lets an LLM agent without native vision understand local image files through Google Gemini or another Google-accessible vision-capable model ID.
 
-The server runs over stdio and exposes image-understanding tools for local image paths.
+The server runs over stdio and exposes image analysis tools for local image paths.
 
 ## Requirements
 
@@ -21,8 +21,8 @@ npm run build
 
 - `GEMINI_API_KEY`: required Google Gemini API key
 - `GEMINI_MODEL`: optional model ID, defaults to `gemini-3.5-flash`
-- `IMAGE_UNDERSTANDING_INLINE_LIMIT_BYTES`: optional inline image limit, defaults to 18 MiB
-- `IMAGE_UNDERSTANDING_MAX_IMAGE_BYTES`: optional maximum image size, defaults to 100 MiB
+- `IMAGE_UNDERSTAND_INLINE_LIMIT_BYTES`: optional inline image limit, defaults to 18 MiB
+- `IMAGE_UNDERSTAND_MAX_IMAGE_BYTES`: optional maximum image size, defaults to 100 MiB
 
 The MCP server reads only the environment of the process that launches it. It does not load `.env`, `.env.local`, or any other dotenv file. For Codex/OpenCode usage, pass `GEMINI_API_KEY` and `GEMINI_MODEL` through that client config or through the parent shell environment.
 
@@ -62,18 +62,18 @@ The tool returns human-readable text plus structured content:
 Add this to `~/.codex/config.toml` after running `npm run build`:
 
 ```toml
-[mcp_servers.image_understanding]
+[mcp_servers.image_understand]
 command = "node"
-args = ["C:/MegaSync/Projects/Git/image-understanding-mcp/dist/index.js"]
+args = ["C:/MegaSync/Projects/Git/image-understand-mcp/dist/index.js"]
 env = { GEMINI_API_KEY = "YOUR_KEY", GEMINI_MODEL = "gemini-3.5-flash" }
 ```
 
 You can also keep the API key outside the config and let Codex inherit the environment:
 
 ```toml
-[mcp_servers.image_understanding]
+[mcp_servers.image_understand]
 command = "node"
-args = ["C:/MegaSync/Projects/Git/image-understanding-mcp/dist/index.js"]
+args = ["C:/MegaSync/Projects/Git/image-understand-mcp/dist/index.js"]
 env = { GEMINI_MODEL = "gemini-3.5-flash" }
 ```
 
@@ -85,9 +85,9 @@ Add this to `opencode.json`:
 {
   "$schema": "https://opencode.ai/config.json",
   "mcp": {
-    "image_understanding": {
+    "image_understand": {
       "type": "local",
-      "command": ["node", "C:/MegaSync/Projects/Git/image-understanding-mcp/dist/index.js"],
+      "command": ["node", "C:/MegaSync/Projects/Git/image-understand-mcp/dist/index.js"],
       "enabled": true,
       "environment": {
         "GEMINI_API_KEY": "{env:GEMINI_API_KEY}",
@@ -104,7 +104,7 @@ Add this to `opencode.json`:
 - `Use analyze_image on ./diagram.png with mode objects and detail detailed`
 - `Extract all visible text from ./receipt.jpg using OCR mode`
 
-In OpenCode, MCP tools are shown as normal tools, often with the MCP server name prefixed. With the sample config above, the tool may appear as `image_understanding_analyze_image`. If a model says it has no MCP tools but lists that tool, that is a model/tool-routing issue; the tool is available.
+In OpenCode, MCP tools are shown as normal tools, often with the MCP server name prefixed. With the sample config above, the tool may appear as `image_understand_analyze_image`. If a model says it has no MCP tools but lists that tool, that is a model/tool-routing issue; the tool is available.
 
 ## Development
 

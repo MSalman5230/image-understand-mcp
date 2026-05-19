@@ -13,7 +13,7 @@ import {
 let tempDirs: string[] = [];
 
 async function makeTempDir(): Promise<string> {
-  const dir = await mkdtemp(path.join(tmpdir(), "image-understanding-mcp-"));
+  const dir = await mkdtemp(path.join(tmpdir(), "image-understand-mcp-"));
   tempDirs.push(dir);
   return dir;
 }

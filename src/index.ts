@@ -14,7 +14,7 @@ import {
 } from "./googleVision.js";
 
 const server = new McpServer({
-  name: "image-understanding",
+  name: "image-understand",
   version: "0.1.0",
 });
 
@@ -91,10 +91,10 @@ server.registerTool(
 async function main(): Promise<void> {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Image Understanding MCP server running on stdio");
+  console.error("Image Understand MCP server running on stdio");
 }
 
 main().catch((error) => {
-  console.error("Fatal error in Image Understanding MCP server:", error);
+  console.error("Fatal error in Image Understand MCP server:", error);
   process.exit(1);
 });

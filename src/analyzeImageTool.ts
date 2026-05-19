@@ -64,7 +64,7 @@ export async function handleAnalyzeImage(
   const detail = args.detail ?? "normal";
   const maxImageBytes =
     deps.maxImageBytes ??
-    parsePositiveIntegerEnv(deps.env?.IMAGE_UNDERSTANDING_MAX_IMAGE_BYTES, DEFAULT_MAX_IMAGE_BYTES);
+    parsePositiveIntegerEnv(deps.env?.IMAGE_UNDERSTAND_MAX_IMAGE_BYTES, DEFAULT_MAX_IMAGE_BYTES);
 
   try {
     const image = await loadImageInput(args.image_path, {
