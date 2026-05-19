@@ -17,6 +17,32 @@ npm install
 npm run build
 ```
 
+## Publish for `npx`
+
+The package exposes a CLI binary named `image-understand-mcp`, so once it is published to npm, users do not need to point their MCP client at `dist/index.js`.
+
+Before publishing:
+
+```bash
+npm run check
+npm pack --dry-run
+```
+
+Publish:
+
+```bash
+npm login
+npm publish --access public
+```
+
+After that, MCP clients can launch the server with:
+
+```bash
+npx -y image-understand-mcp
+```
+
+For unreleased local testing, keep using `node dist/index.js`, or run `npm link` from this repo and use the linked `image-understand-mcp` binary.
+
 ## Environment
 
 - `GEMINI_API_KEY`: required Google Gemini API key
@@ -59,16 +85,25 @@ The tool returns human-readable text plus structured content:
 
 ## Codex Config
 
-Add this to `~/.codex/config.toml` after running `npm run build`:
+Add this to `~/.codex/config.toml` after publishing the package to npm:
 
 ```toml
 [mcp_servers.image_understand]
-command = "node"
-args = ["C:/MegaSync/Projects/Git/image-understand-mcp/dist/index.js"]
+command = "npx"
+args = ["-y", "image-understand-mcp"]
 env = { GEMINI_API_KEY = "YOUR_KEY", GEMINI_MODEL = "gemini-3.5-flash" }
 ```
 
 You can also keep the API key outside the config and let Codex inherit the environment:
+
+```toml
+[mcp_servers.image_understand]
+command = "npx"
+args = ["-y", "image-understand-mcp"]
+env = { GEMINI_MODEL = "gemini-3.5-flash" }
+```
+
+For local development before publishing, use the built file directly:
 
 ```toml
 [mcp_servers.image_understand]
@@ -87,7 +122,7 @@ Add this to `opencode.json`:
   "mcp": {
     "image_understand": {
       "type": "local",
-      "command": ["node", "C:/MegaSync/Projects/Git/image-understand-mcp/dist/index.js"],
+      "command": ["npx", "-y", "image-understand-mcp"],
       "enabled": true,
       "environment": {
         "GEMINI_API_KEY": "{env:GEMINI_API_KEY}",
