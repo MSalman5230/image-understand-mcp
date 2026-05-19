@@ -42,7 +42,7 @@ Inputs:
 
 - `image_path` string, required. Local filesystem path only. Relative paths resolve from the MCP server working directory.
 - `question` string, optional. A specific question about the image.
-- `mode` string, optional. One of `general`, `ocr`, `objects`, `accessibility`, or `extreme_detail`. Default: `general`.
+- `mode` string, optional. One of `general`, `ocr`, `objects`, or `accessibility`. Default: `general`.
 - `detail` string, optional. One of `brief`, `normal`, or `detailed`. Default: `normal`.
 
 The tool returns human-readable text plus structured content:
@@ -105,7 +105,6 @@ Add this to `opencode.json`:
 ## Example Prompts
 
 - `What is this image? C:/Users/me/Desktop/screenshot.png`
-- `Describe everything in this image using extreme_detail mode: C:/Users/me/Desktop/photo.jpg`
 - `Use describe_image on ./diagram.png`
 - `Use analyze_image on ./diagram.png with mode objects and detail detailed`
 - `Extract all visible text from ./receipt.jpg using OCR mode`

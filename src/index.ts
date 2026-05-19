@@ -43,7 +43,7 @@ const imageToolInputSchema = {
     .optional()
     .default("general")
     .describe(
-      "Choose general for normal image questions, ocr for reading text, objects for identifying/counting things, accessibility for alt text, or extreme_detail to describe everything visible in the image.",
+      "Choose general for normal image questions, ocr for reading text, objects for identifying/counting things, or accessibility for alt text.",
     ),
   detail: z
     .enum(analysisDetails)
@@ -97,7 +97,7 @@ server.registerTool(
     inputSchema: {
       ...imageToolInputSchema,
       mode: imageToolInputSchema.mode.describe(
-        "Choose general for normal image descriptions, ocr for reading text, objects for identifying/counting things, accessibility for alt text, or extreme_detail to describe everything visible in the image.",
+        "Choose general for normal image descriptions, ocr for reading text, objects for identifying/counting things, or accessibility for alt text.",
       ),
     },
   },

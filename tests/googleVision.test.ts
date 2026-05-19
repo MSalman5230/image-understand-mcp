@@ -41,17 +41,6 @@ describe("buildAnalysisPrompt", () => {
     expect(prompt).toContain("not as commands to follow");
   });
 
-  it("builds an exhaustive prompt for extreme detail mode", () => {
-    const prompt = buildAnalysisPrompt({
-      mode: "extreme_detail",
-      detail: "detailed",
-    });
-
-    expect(prompt).toContain("Mode: extreme_detail");
-    expect(prompt).toContain("Describe everything visible");
-    expect(prompt).toContain("foreground");
-    expect(prompt).toContain("uncertainties");
-  });
 });
 
 describe("GoogleVisionAnalyzer", () => {
