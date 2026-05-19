@@ -1,6 +1,6 @@
 {
   "name": "@msalman5230/image-understand-mcp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Local MCP server that lets text-only agents understand local images through Gemini vision models.",
   "license": "MIT",
   "type": "module",
