@@ -28,15 +28,11 @@ The MCP server reads only the environment of the process that launches it. It do
 
 Gemma support in v1 is configuration-based: set `GEMINI_MODEL` to a Google-accessible, vision-capable Gemma model ID if your account/runtime supports it. This server does not include a local Gemma runtime.
 
-## Tools
+## Tool
 
 `analyze_image`
 
 Use this for specific image analysis, OCR, object detection, accessibility descriptions, charts, screenshots, receipts, diagrams, and general questions about local image files.
-
-`describe_image`
-
-Alias for `analyze_image` with a more obvious name for agent tool selection. This helps models choose the tool for prompts like "what is this image?", "describe this screenshot", or "what is shown here?".
 
 Inputs:
 
@@ -105,11 +101,10 @@ Add this to `opencode.json`:
 ## Example Prompts
 
 - `What is this image? C:/Users/me/Desktop/screenshot.png`
-- `Use describe_image on ./diagram.png`
 - `Use analyze_image on ./diagram.png with mode objects and detail detailed`
 - `Extract all visible text from ./receipt.jpg using OCR mode`
 
-In OpenCode, MCP tools are shown as normal tools, often with the MCP server name prefixed. With the sample config above, the tools may appear as `image_understanding_analyze_image` and `image_understanding_describe_image`. If a model says it has no MCP tools but lists those tools, that is a model/tool-routing issue; the tools are available.
+In OpenCode, MCP tools are shown as normal tools, often with the MCP server name prefixed. With the sample config above, the tool may appear as `image_understanding_analyze_image`. If a model says it has no MCP tools but lists that tool, that is a model/tool-routing issue; the tool is available.
 
 ## Development
 

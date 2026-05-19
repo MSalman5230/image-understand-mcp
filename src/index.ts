@@ -88,22 +88,6 @@ server.registerTool(
   runAnalyzeImageTool,
 );
 
-server.registerTool(
-  "describe_image",
-  {
-    title: "Describe Image",
-    description:
-      "Use this tool for common requests like 'what is this image?', 'describe this screenshot', 'what is shown here?', or 'look at this image'. It analyzes a local image path with Gemini vision and returns text the agent can use. This is an alias of analyze_image for better tool discovery.",
-    inputSchema: {
-      ...imageToolInputSchema,
-      mode: imageToolInputSchema.mode.describe(
-        "Choose general for normal image descriptions, ocr for reading text, objects for identifying/counting things, or accessibility for alt text.",
-      ),
-    },
-  },
-  runAnalyzeImageTool,
-);
-
 async function main(): Promise<void> {
   const transport = new StdioServerTransport();
   await server.connect(transport);
